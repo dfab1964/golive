@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transition Example</title>
+    <style>
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+	display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.hiddenDiv {
+    visibility: hidden;
+    opacity: 0;
+    width: 0px; 
+	height: 80px;
+    position: absolute; 
+    padding: 0px;
+    background-color: #f0f8ff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.1s ease, visibility 0.1s ease, width 0.5s ease;
+}
+
+.visibleDiv {
+	display: block;
+    visibility: visible;
+    opacity: 1;
+    width: 300px;
+	height: 40px;
+    position: absolute; 
+    padding: 0px;
+    background-color: #f0f8ff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: opacity 1.5s ease, visibility 1.5s ease, width 1.0s ease
+}	
+	
+	</style>
+</head>
+<body>
+
+    <div id="divMain" style="cursor:pointer;border-style:solid;border-color:#808080;border-width:1px;width:200px;text-align:center" onclick="showAllSizes(this.id)">All sizes</div>
+
+    <!-- Div to show or hide -->
+    <div id="hiddenDiv" class="hiddenDiv">
+    </div>
+
+    <script>
+	
+	function showAllSizes(parentId) {
+		const parent = document.getElementById(parentId);
+		const rect = parent.getBoundingClientRect();
+
+		// Get the position of the button relative to the page
+		const top = rect.top + window.scrollY;
+		const left = rect.left + window.scrollX;
+
+		// Get the div to be shown
+		const div = document.getElementById("hiddenDiv");
+		div.innerHTML = '<p>XXS XS S M L XL XXL XXXL</p>';
+
+		// Position the div just below the button using the captured button position
+		div.style.top = top + parent.offsetHeight + "px"; // Position below the button
+		div.style.left = left + "px"; // Align it with the left edge of the button
+		
+		if (div.className === "hiddenDiv") {
+			div.className = "visibleDiv";
+		} else {
+			div.className = "hiddenDiv";
+		}
+	}
+	
+	</script>
+</body>
+</html>
